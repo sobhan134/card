@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090a0d">
+<title>SobMT</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#090a0d;--txt:#eef0f3;--mut:#9ba1ab;--line:rgba(255,255,255,.13);--silver:linear-gradient(135deg,#f7f9fb 0%,#b9bec7 40%,#eef0f3 65%,#8e949e 100%)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--txt);font-family:"Vazirmatn",system-ui,-apple-system,Segoe UI,Tahoma,sans-serif}
+body{min-height:100vh;overflow-x:hidden;padding-bottom:calc(44px + env(safe-area-inset-bottom,0px));
+ background:radial-gradient(900px 520px at 50% -8%,rgba(205,214,228,.2),transparent 62%),radial-gradient(600px 400px at 90% 90%,rgba(120,130,150,.12),transparent 60%),var(--bg)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 1px,transparent 1px 4px)}
+a,button{font:inherit;color:inherit;text-decoration:none;border:0;background:none;cursor:pointer}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{position:relative;max-width:480px;margin:0 auto;padding:0 20px}
+.top{display:flex;justify-content:space-between;align-items:center;padding-top:calc(16px + env(safe-area-inset-top,0px))}
+.pill{display:flex;align-items:center;gap:8px;padding:9px 15px;border-radius:99px;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.03));border:1px solid var(--line);font-size:12.5px;font-weight:700;letter-spacing:.4px}
+.nfc{position:relative;width:7px;height:7px;border-radius:50%;background:#dfe3e9}
+.nfc::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid #dfe3e9;animation:ring 1.8s infinite}
+@keyframes ring{from{transform:scale(.4);opacity:1}to{transform:scale(1.5);opacity:0}}
+
+/* the card */
+.stage{perspective:1100px;margin-top:26px}
+.float{animation:fl 6s ease-in-out infinite alternate}
+@keyframes fl{to{transform:translateY(-8px)}}
+.c3{position:relative;width:100%;aspect-ratio:1.586;border-radius:24px;overflow:hidden;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s ease-out;
+ background:repeating-linear-gradient(90deg,rgba(255,255,255,.09) 0 1px,rgba(0,0,0,.035) 1px 2px),linear-gradient(135deg,#f9fafc 0%,#cdd1d8 20%,#9ba1ab 44%,#e9ecf0 62%,#a7acb5 80%,#dcdfe4 100%);
+ box-shadow:0 44px 70px -26px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.35) inset,0 2px 0 rgba(255,255,255,.7) inset}
+.c3::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,30%) var(--my,15%),rgba(255,255,255,.75),transparent 46%);mix-blend-mode:soft-light;pointer-events:none}
+.c3::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 48%,transparent 60%);background-size:260% 100%;background-position:calc(var(--mx,30%)*1.6) 0;mix-blend-mode:overlay;pointer-events:none}
+.emb{color:#6a707a;text-shadow:0 1px 0 rgba(255,255,255,.9),0 -1px 0 rgba(0,0,0,.22)}
+.cf{position:absolute;inset:0;padding:clamp(14px,5vw,24px);display:flex;flex-direction:column;justify-content:space-between;direction:ltr}
+.r1,.r3{display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:clamp(15px,5vw,21px);font-weight:800;letter-spacing:3px}
+.mid{display:flex;align-items:center;gap:14px}
+.chip{position:relative;width:clamp(40px,12vw,54px);aspect-ratio:1.25;border-radius:8px;background:linear-gradient(135deg,#f6e7b8,#c7a65a 45%,#f3dfa4 70%,#b99444);box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 2px 4px rgba(0,0,0,.35)}
+.chip::before{content:"";position:absolute;inset:22% 0;border-block:1px solid rgba(80,55,10,.45)}
+.chip::after{content:"";position:absolute;inset:0 33%;border-inline:1px solid rgba(80,55,10,.45)}
+.nf{width:clamp(22px,6vw,30px);height:clamp(22px,6vw,30px);fill:none;stroke:#6a707a;stroke-width:2.2;stroke-linecap:round;filter:drop-shadow(0 1px 0 rgba(255,255,255,.9))}
+.peak{width:clamp(44px,14vw,64px);margin-inline-start:auto;fill:none;stroke:#7b818b;stroke-width:2.2;stroke-linejoin:round;filter:drop-shadow(0 1px 0 rgba(255,255,255,.9))}
+h1{margin:0;font-size:clamp(17px,5.6vw,24px);font-weight:800;letter-spacing:1.5px;line-height:1.3;direction:rtl}
+.sub{font-size:clamp(10px,3vw,12px);letter-spacing:2.5px;font-weight:700;margin-top:2px}
+.holo{width:clamp(34px,10vw,46px);aspect-ratio:1;border-radius:50%;background:conic-gradient(from calc(var(--ry,0deg)*6),#ff9bd0,#9bd8ff,#b6ffd8,#fff3a8,#ff9bd0);box-shadow:0 0 0 2px rgba(255,255,255,.6),0 2px 6px rgba(0,0,0,.3);opacity:.9}
+
+.medal{position:relative;width:128px;height:128px;margin:34px auto 0;padding:5px;border-radius:50%;
+ background:conic-gradient(from calc(var(--ry,0deg)*5),#fafbfc,#9ba1ab,#eceff2,#7d838d,#f5f7f9,#a7acb5,#fafbfc);
+ box-shadow:0 26px 44px -16px rgba(0,0,0,.95),0 0 40px -6px rgba(210,220,235,.28)}
+.medal>div{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 22%,#30333b,#0b0c0f 72%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2),inset 0 10px 22px rgba(255,255,255,.07)}
+.medal svg{width:62px}
+.medal::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at var(--mx,30%) var(--my,20%),rgba(255,255,255,.5),transparent 48%);mix-blend-mode:soft-light;pointer-events:none}
+.nm{margin:22px 0 0;text-align:center;font-size:40px;font-weight:800;letter-spacing:1px;line-height:1.3;
+ background:linear-gradient(100deg,#8a909a 0%,#fff 22%,#b9bec7 42%,#fff 58%,#8a909a 78%,#e9ecf0 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+ animation:ms 6s linear infinite;filter:drop-shadow(0 2px 14px rgba(205,215,230,.25))}
+@keyframes ms{to{background-position:-250% 0}}
+.orn{position:relative;width:150px;height:1px;margin:14px auto 0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent)}
+.orn::after{content:"";position:absolute;left:50%;top:-3px;width:7px;height:7px;margin-left:-3px;transform:rotate(45deg);background:var(--silver)}
+.id{text-align:center;margin-top:30px}
+.role{height:30px;font-size:17px;font-weight:800;letter-spacing:.5px;background:var(--silver);-webkit-background-clip:text;background-clip:text;color:transparent;transition:.4s}
+.role.out{opacity:0;transform:translateY(8px)}
+.bio{margin:8px auto 0;max-width:400px;color:var(--mut);font-size:14.5px;line-height:2}
+.avail{display:inline-flex;align-items:center;gap:9px;margin-top:14px;padding:8px 16px;border-radius:99px;font-size:12.5px;font-weight:700;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05)}
+.avail i{width:8px;height:8px;border-radius:50%;background:#7dffd2;animation:rg 1.6s infinite}
+@keyframes rg{0%{box-shadow:0 0 0 0 rgba(125,255,210,.7)}100%{box-shadow:0 0 0 9px transparent}}
+
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:26px}
+.act{display:flex;flex-direction:column;align-items:center;gap:9px;padding:17px 6px;border-radius:20px;border:1px solid var(--line);font-size:13px;font-weight:700;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.02));box-shadow:0 1px 0 rgba(255,255,255,.12) inset;transition:transform .2s}
+.act:active,.lk:active,.cta:active{transform:scale(.96)}
+.act svg{width:25px;height:25px;color:#e4e7ec}
+.cta{position:relative;overflow:hidden;display:flex;justify-content:center;align-items:center;gap:10px;width:100%;margin-top:12px;padding:17px;border-radius:20px;font-size:16px;font-weight:800;color:#15171b;
+ background:linear-gradient(135deg,#fbfcfd,#b9bec7 45%,#f1f3f6 70%,#9aa0aa);box-shadow:0 18px 36px -14px rgba(220,226,236,.5),0 1px 0 #fff inset;transition:transform .2s}
+.cta::after{content:"";position:absolute;top:0;bottom:0;width:70px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent);transform:skewX(-20deg);animation:sw 3.4s infinite;inset-inline-start:-90px}
+@keyframes sw{to{inset-inline-start:110%}}
+
+h2{display:flex;align-items:center;gap:12px;margin:34px 0 14px;font-size:12.5px;font-weight:800;color:var(--mut);letter-spacing:2px;text-transform:uppercase}
+h2::before,h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent)}
+.lk{display:flex;align-items:center;gap:14px;padding:13px 14px;margin-bottom:10px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015));transition:transform .2s}
+.ic{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex:none;color:#15171b;background:var(--silver);box-shadow:0 1px 0 #fff inset,0 6px 14px -6px rgba(0,0,0,.8)}
+.lk b{display:block;font-size:15px}.lk small{color:var(--mut);direction:ltr;unicode-bidi:isolate;display:inline-block;font-size:12.5px}
+.g{flex:1;min-width:0}.ar{color:var(--mut);width:18px;height:18px}
+[dir=rtl] .ar{transform:scaleX(-1)}
+.cp{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.07);flex:none}
+.cp svg{width:17px;height:17px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chips span{padding:9px 16px;border-radius:99px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.04);font-size:13.5px;font-weight:700}
+.foot{margin-top:36px;text-align:center;color:var(--mut);font-size:12px;letter-spacing:2px}
+.foot .pill{margin:14px auto 0}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+#toast{position:fixed;z-index:20;left:50%;bottom:calc(26px + env(safe-area-inset-bottom,0px));transform:translate(-50%,40px);opacity:0;padding:12px 22px;border-radius:99px;background:var(--silver);color:#15171b;font-weight:800;font-size:13.5px;transition:.35s}
+#toast.show{transform:translate(-50%,0);opacity:1}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="pill"><span class="nfc"></span><span id="tapt">NFC</span></div>
+    <button class="pill" id="lang">EN</button>
+  </div>
+
+  <div class="float"><div class="medal" id="c3"><div>
+    <svg viewBox="0 0 64 48"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#aeb4bd"/><stop offset="1" stop-color="#e6e9ee"/></linearGradient></defs>
+    <polygon points="3,45 22,8 33,30 43,17 61,45" fill="url(#sg)" stroke="#fff" stroke-opacity=".4" stroke-linejoin="round"/><polygon points="22,8 27,18 22,15 17,18" fill="#0d0e11"/></svg>
+  </div></div></div>
+  <h1 class="nm" id="name"></h1>
+  <div class="orn"></div>
+
+  <div class="acts rv" id="acts"></div>
+  <button class="cta rv" id="save"></button>
+
+  <h2 class="rv" id="h-links"></h2><div id="links"></div>
+
+  <div class="foot rv"><div>© SOBMT</div><button class="pill" id="share"></button></div>
+</div>
+<div id="toast"></div>
+
+<script>
+/* ================= EDIT THIS BLOCK ================= */
+const CONFIG = {
+  name:  { fa: "سبحان نوشاد", en: "SOBHAN NOSHAD" },
+  phone: "+989361076609",
+  email: "sobhannoshad1387@gmail.com",
+  links: [ { type: "telegram", handle: "Sobhannoshad" } ]
+};
+/* =================================================== */
+
+const T = {
+  fa: { tap: "با NFC باز شد", call: "تماس", msg: "پیام", mail: "ایمیل", save: "ذخیره در مخاطبین", links: "راه‌های ارتباطی", serv: "خدمات", avail: "آماده‌ی همکاری", share: "اشتراک‌گذاری", copied: "کپی شد ✓", saved: "فایل مخاطب آماده شد ✓" },
+  en: { tap: "Opened via NFC", call: "Call", msg: "Message", mail: "Email", save: "Save to Contacts", links: "Get in touch", serv: "Services", avail: "Available for work", share: "Share", copied: "Copied ✓", saved: "Contact file ready ✓" }
+};
+const P = {
+  phone: "M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z",
+  mail: "M3 6h18v12H3zM3 7l9 7 9-7",
+  telegram: "M21 4 3 11l6 2.5L11 20l3-4 5 4z",
+  whatsapp: "M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3zM9 8c.5 3 2.5 5 6 6",
+  instagram: "M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM17.5 6.5h.01",
+  youtube: "M3 7a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM10 9l5 3-5 3z",
+  linkedin: "M4 4h4v16H4zM10 9h4v2a4 4 0 0 1 6 2v7h-4v-6a2 2 0 0 0-4 0v6h-2z",
+  github: "M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14",
+  download: "M12 3v12M7 10l5 5 5-5M4 21h16",
+  copy: "M9 9h11v11H9zM5 15V4h11",
+  share: "M12 3v12M8 7l4-4 4 4M5 12v8h14v-8",
+  arrow: "M9 5l7 7-7 7"
+};
+const BASE = { telegram: "https://t.me/", whatsapp: "https://wa.me/", instagram: "https://instagram.com/", github: "https://github.com/" };
+const NAME = { telegram: "Telegram", whatsapp: "WhatsApp", instagram: "Instagram", youtube: "YouTube", linkedin: "LinkedIn", github: "GitHub" };
+const icon = (k, cls = "") => `<svg class="i ${cls}" viewBox="0 0 24 24"><path d="${P[k]}"/></svg>`;
+const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];
+const href = (l) => l.url || (BASE[l.type] || "") + l.handle;
+const show = (l) => l.url ? l.url.replace(/^https?:\/\/(www\.)?/, "") : "@" + l.handle.replace(/^@/, "");
+
+let lang = "fa", roleI = 0, tm;
+try { lang = new URLSearchParams(location.search).get("lang") || localStorage.getItem("lang") || "fa"; } catch (e) {}
+if (!T[lang]) lang = "fa";
+
+function toast(m) { const t = $("#toast"); t.textContent = m; t.className = "show"; clearTimeout(tm); tm = setTimeout(() => (t.className = ""), 1800); try { navigator.vibrate(12); } catch (e) {} }
+function copy(txt) { (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).catch(() => { const a = document.createElement("textarea"); a.value = txt; document.body.appendChild(a); a.select(); try { document.execCommand("copy"); } catch (e) {} a.remove(); }); toast(T[lang].copied); }
+
+function render() {
+  const t = T[lang], C = CONFIG, tg = C.links.find((l) => l.type === "telegram") || C.links.find((l) => l.type === "whatsapp");
+  document.documentElement.lang = lang; document.documentElement.dir = lang === "fa" ? "rtl" : "ltr";
+  $("#lang").textContent = lang === "fa" ? "EN" : "فا"; $("#tapt").textContent = t.tap;
+  $("#name").textContent = C.name[lang]; document.title = C.name[lang] + " · SobMT";
+  $("#acts").innerHTML = `<a class="act" href="tel:${C.phone}">${icon("phone")}${t.call}</a>` +
+    (tg ? `<a class="act" href="${href(tg)}" target="_blank" rel="noopener">${icon(tg.type)}${t.msg}</a>` : "") +
+    `<a class="act" href="mailto:${C.email}">${icon("mail")}${t.mail}</a>`;
+  $("#save").innerHTML = icon("download") + t.save;
+  $("#h-links").textContent = t.links;
+  $("#links").innerHTML = C.links.map((l) => `<a class="lk rv" href="${href(l)}" target="_blank" rel="noopener"><span class="ic">${icon(l.type)}</span><span class="g"><b>${NAME[l.type]}</b><small>${show(l)}</small></span>${icon("arrow", "ar")}</a>`).join("") +
+    [["phone", t.call, C.phone], ["mail", t.mail, C.email]].map(([k, n, v]) => `<div class="lk rv" data-c="${v}"><span class="ic">${icon(k)}</span><span class="g"><b>${n}</b><small>${v}</small></span><span class="cp">${icon("copy")}</span></div>`).join("");
+  $("#share").innerHTML = icon("share") + t.share;
+  $$(".lk[data-c]").forEach((el) => (el.onclick = () => copy(el.dataset.c)));
+  reveal();
+}
+const io = "IntersectionObserver" in window ? new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add("in"), io.unobserve(e.target))), { threshold: .12 }) : null;
+function reveal() { $$(".rv:not(.in)").forEach((el) => (io ? io.observe(el) : el.classList.add("in"))); }
+
+function vcard() {
+  const C = CONFIG, f = (s) => String(s).replace(/[,;\n]/g, " ");
+  const lines = ["BEGIN:VCARD", "VERSION:3.0", "FN:" + f(C.name[lang]), "ORG:SobMT",
+    "TEL;TYPE=CELL:" + C.phone, "EMAIL:" + C.email, ...C.links.map((l) => "URL:" + href(l)), "END:VCARD"];
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([lines.join("\r\n")], { type: "text/vcard;charset=utf-8" }));
+  a.download = "contact.vcf"; document.body.appendChild(a); a.click(); a.remove(); toast(T[lang].saved);
+}
+$("#lang").onclick = () => { lang = lang === "fa" ? "en" : "fa"; try { localStorage.setItem("lang", lang); } catch (e) {} render(); };
+$("#save").onclick = vcard;
+$("#share").onclick = () => { if (navigator.share) navigator.share({ title: CONFIG.name[lang], url: location.href }).catch(() => {}); else copy(location.href); };
+
+/* card tilt + moving light (pointer on desktop, gyro on phones) */
+const c3 = $("#c3"), cl = (v) => Math.max(-1, Math.min(1, v));
+function tilt(x, y) {
+  c3.style.setProperty("--ry", (x * 14).toFixed(1) + "deg"); c3.style.setProperty("--rx", (-y * 12).toFixed(1) + "deg");
+  c3.style.setProperty("--mx", (50 + x * 45).toFixed(0) + "%"); c3.style.setProperty("--my", (50 + y * 45).toFixed(0) + "%");
+}
+addEventListener("pointermove", (e) => tilt((e.clientX / innerWidth) * 2 - 1, (e.clientY / innerHeight) * 2 - 1));
+addEventListener("deviceorientation", (e) => { if (e.gamma != null) tilt(cl(e.gamma / 25), cl((e.beta - 45) / 25)); });
+
+render();
+</script>
+</body>
+</html>
